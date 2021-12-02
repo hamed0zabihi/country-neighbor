@@ -2,17 +2,15 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Row, Col } from "reactstrap";
 import ButtonIncDec from "../../component/styles/ButtonIncDec/ButtonIncDec";
-import {
-  fetchCountriesNeighbors,
-  separateCountries,
-} from "../../redux/actions/Country";
+import { separateCountries } from "../../redux/actions/Country";
+import UniqCountries from "../../component/country/UniqCountries";
 
 const Home = () => {
   const dispatch = useDispatch();
   const allCountriesInWorld = useSelector(
     (state) => state.country.allcountriesinworld
   );
-  const nextStep = useSelector((state) => state.country.nextStep);
+
   const [countryNumber, setCountryNumber] = useState(10);
 
   useEffect(() => {
@@ -38,6 +36,7 @@ const Home = () => {
           <ButtonIncDec handleClick={handleClick} defaultData={countryNumber} />
         </Col>
       </Row>
+      <UniqCountries />
     </>
   );
 };

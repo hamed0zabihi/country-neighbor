@@ -40,7 +40,7 @@ export const separateCountries = (count = 10) => {
 export const fetchCountriesNeighbors = () => {
   return (dispatch, getState) => {
     const urls = [...getState().country.uniqUrls];
-    urls.forEach((url) => dispatch(fetchCountryNeighbors(url)));
+    urls.map((url) => dispatch(fetchCountryNeighbors(url)));
   };
 };
 
@@ -50,6 +50,7 @@ export const fetchCountryNeighbors = (url) => {
     try {
       const { data, status } = await getCountriesNeighborsFromApi(url);
       if (status === 200) {
+        console.log("foreach", url);
         const countriesNeighborsExist = [
           ...getState().country.countriesNeighbors,
         ];
