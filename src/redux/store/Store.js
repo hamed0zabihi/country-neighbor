@@ -1,6 +1,7 @@
 import { applyMiddleware, compose, createStore } from "redux";
 import thunk from "redux-thunk";
 import { reducers } from "../reducers";
+import { fetchCountry } from "../actions/Country";
 
 //for reduxDevTools Extesion Browser
 const reduxDevTools =
@@ -11,6 +12,6 @@ export const Store = createStore(
   compose(applyMiddleware(thunk), reduxDevTools)
 );
 //
-// Store.dispatch(firstFech());
+Store.dispatch(fetchCountry());
 //subscribe
-Store.subscribe(() => console.log(Store.getState()));
+// Store.subscribe(() => console.log(Store.getState()));
