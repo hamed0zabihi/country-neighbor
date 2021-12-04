@@ -1,20 +1,26 @@
 import { useSelector } from "react-redux";
-import { Badge } from "reactstrap";
+import { Col, Badge } from "reactstrap";
 import findNeigbors from "../utils/country/findNeighbors";
 
 const Neighbors = ({ name }) => {
-  const countriesNeighbors = useSelector(
-    (state) => state.country.countriesNeighbors
+  const { countriesNeighbors, uniqCountries } = useSelector(
+    (state) => state.country
   );
 
-  const neighborsCountry = findNeigbors(name, countriesNeighbors);
-
-  console.log(
-    "isExist",
-    name,
-    countriesNeighbors.flat().some((el) => Object.keys(el) == name)
-  );
-
+  // select unique contries with neighbors
+  const uniqCountriesWithNeighbors = uniqCountries
+    .map((el) =>
+      countriesNeighbors.filter((els) => {
+        if (Object.keys(els) == el) {
+          return els;
+        }
+      })
+    )
+    .flat();
+  // This country is a neighbor of another country on this list
+  // countries have this country in neighbors
+  const neighborsCountry = findNeigbors(name, uniqCountriesWithNeighbors);
+  // filter neighbors
   const countryWithNeighbors = countriesNeighbors
     .filter((els) => {
       if (Object.keys(els) == name) {
@@ -22,29 +28,41 @@ const Neighbors = ({ name }) => {
       }
     })
     .flat();
-
   const c = countryWithNeighbors[0];
   const countryNeighbors = Object.values(c).flat();
 
   return (
-    <div>
-      {countryNeighbors.map((el) => (
-        <Badge pill key={el}>
-          {el}
-        </Badge>
-      ))}
-      {neighborsCountry.map((el) => (
-        <div
-          key={el}
-          className=" d-inline-flex justify-content-center align-items-center"
-        >
-          <span> is common on this list: </span>
-          <Badge pill color="success">
-            {el}
-          </Badge>
-        </div>
-      ))}
-    </div>
+    <Col>
+      <Col>
+        <Col>
+          {countryNeighbors.map((el) => (
+            <Badge color="secondary" pill key={el}>
+              {el}
+            </Badge>
+          ))}
+        </Col>
+        <Col>
+          {neighborsCountry.length ? (
+            <Col>
+              <span> {name} is one of </span>
+              {neighborsCountry.map((el) => (
+                <div
+                  key={el}
+                  className=" d-inline-flex justify-content-center align-items-center"
+                >
+                  <Badge pill color="success">
+                    {el}
+                  </Badge>
+                </div>
+              ))}
+              <span> neighbors on this list</span>
+            </Col>
+          ) : (
+            ""
+          )}
+        </Col>
+      </Col>
+    </Col>
   );
 };
 

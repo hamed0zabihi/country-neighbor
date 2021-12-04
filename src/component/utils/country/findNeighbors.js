@@ -1,5 +1,6 @@
 const findNeigbors = (name, array) => {
   return array
+    .flat()
     .map((el) =>
       Object.entries(el)
         .map(([key, value]) =>

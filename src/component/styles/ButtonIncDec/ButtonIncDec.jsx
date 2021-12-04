@@ -9,7 +9,6 @@ const ButtonIncDec = ({ handleClick, defaultData }) => {
         max={100}
         defaultValue={defaultData}
         onChange={(e) => handleClick(e)}
-        disabled
       />
     </>
   );

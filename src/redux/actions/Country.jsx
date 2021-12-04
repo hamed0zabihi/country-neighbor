@@ -30,9 +30,8 @@ export const separateCountries = (count = 10) => {
     const allcountries = [...getState().country.allcountriesinworld];
     const shuffle = ShuffleCountries(allcountries, count);
 
-    dispatch({ type: Types.SEPARATE_COUNTRY, payload: shuffle });
+    await dispatch({ type: Types.SEPARATE_COUNTRY, payload: shuffle });
     await dispatch(fetchCountriesNeighbors());
-    await dispatch(commonNeighborsUniqeCountry());
   };
 };
 
@@ -50,11 +49,11 @@ export const fetchCountryNeighbors = (url) => {
     try {
       const { data, status } = await getCountriesNeighborsFromApi(url);
       if (status === 200) {
-        console.log("foreach", url);
         const countriesNeighborsExist = [
           ...getState().country.countriesNeighbors,
         ];
         // check country is exist  in countriesNeighbors
+
         const countryWithNeighbors = !isExistKeyArrayObjects(
           countriesNeighborsExist,
           data.names.name
@@ -99,7 +98,10 @@ export const commonNeighborsUniqeCountry = () => {
       .flat();
 
     const commomNeighbors = uniqCountries.map((el) => {
-      return { [el]: findNeigbors(el, uniqCountriesWithNeighbors) };
+      return {
+        name: el,
+        neighbor: findNeigbors(el, uniqCountriesWithNeighbors),
+      };
     });
 
     dispatch({
