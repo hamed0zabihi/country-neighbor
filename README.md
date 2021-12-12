@@ -1,70 +1,69 @@
-# Getting Started with Create React App
+# In name of Allah
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Nilva React Code Challange
 
-## Available Scripts
+## Introduction
 
-In the project directory, you can run:
+we want you to design and implement a simple single web page app which will use the blow `public API` to request and fetch some data and do the specified tasks below.
 
-### `npm start`
+```bash
+https://travelbriefing.org/api
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Tasks
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- fetch a list of `10 random, unique` countries from the list of countries in the endpoint below. e.g. Canada, USA, Japan, etc.
 
-### `npm test`
+```bash
+https://travelbriefing.org/countries.json
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+each country will have its own endpoint. e.g.:
 
-### `npm run build`
+```bash
+https://travelbriefing.org/Netherlands?format=json
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+this response will be an object with a key of `neighbors`
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+check the 10 countries to see which countries are `mutual neighbors`. this means these countries have each other in their `neighbors` field. e.g.:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```bash
+{name: 'Canada', neighbors: [{name: 'USA', ...},...]}
 
-### `npm run eject`
+{name: 'USA', neighbors: [{name: 'Canada',...},...]}
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+are mutual neighbors.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- feel free to display the mutual neighbors in any way that makes sense to you. Note: if you find that `Canada` and `USA` are mutual neighbors, you should only display the pair once.
+- if none of the chosen countries had no mutual neighbors, simply display a message in a desired way and sat that `there are no mutual neighbors in the chosen countries` then please display the selected countries as well.
+- `fork` this repository, develop your code, and push it to your forked branch. when you think your code is ready, simply just raise a `pull request` here.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## Expectations
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- a clean structure of codebase and components
+- clean and readable code practice
+- ability to layout pages correctly
+- responsive and simple design
+- well and optimized API calls
 
-## Learn More
+## Notes
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- please write your app in ReactJS, no backend necessary.
+- please `do not` use any libraries to select the random countries or find neighbors.
+- feel free to use any boilerplate to quickly set up the app. eg: `CRA`
+- don't hesitate to take your time and review others written codes, and by the way contact us for more information and help, we're reachable on scheduled time.
+- it would be better to write a simple and brief `README.md` file.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Suggested techs
 
-### Code Splitting
+take your time and make a review on these techs. we would gladly provide you with the required information and useful documents about each one of `ordered preferred` techs listed below.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- main framework: [ReactJS](https://reactjs.org/), [NextJS](https://nextjs.org/), [Ionic](https://ionicframework.com/), ...
+- style framework: [SASS](https://sass-lang.com/), [LESS](https://lesscss.org/), [Tailwind](https://tailwindcss.com/), ...
+- item and icons packages: [Material-Ui](https://material-ui.com/), [bootstrap](https://getbootstrap.com/), ...
+- data fetching: [axios](https://github.com/axios/axios), fetch
+- state management: [Redux toolkit](https://redux-toolkit.js.org/), [React-Redux](https://redux.js.org/), [useContext](https://reactjs.org/docs/hooks-reference.html#usecontext), ...
 
-### Analyzing the Bundle Size
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)

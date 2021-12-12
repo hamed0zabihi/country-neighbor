@@ -10,43 +10,51 @@ const MutualNieghbors = () => {
     isLoading,
     uniqCountries,
   } = useSelector((state) => state.country);
+  //
   const notEmptyNeighbors = commonNeighborsUniqeCountry.filter(
-    (el) => el.neighbor != ""
+    (el) => el.neighbor !== undefined || el.neighbor.length !== 0
   );
 
-  //   function generate seprate neighbors :
-  //   { name: "iran", neighbor: ["turkey","iraq"] }  to :
-  //   { name: "iran", neighbor: "turkey" },{ name: "iran", neighbor: "iraq" }
+  //
 
-  const pairNeghbors = notEmptyNeighbors
-    .map((el) =>
-      el.neighbor
-        ?.map((item) => {
-          return { name: el.name, neighbor: item };
-        })
-        .flat()
-    )
-    .flat();
-
-  // We want to show the mutual neighbors once
-  // one of
-  // { name: "iran", neighbor: "turkey" }   or   { name: "turkey", neighbor: "iran" }
-  // select one of mutual neighbors with index
-  // function return on of two mutual index
-
-  const indexOfMutual = (obj, arr, index) => {
-    let indexis = arr.findIndex(
-      (el) => el.name === obj.neighbor && el.neighbor === obj.name
-    );
-    if (indexis !== -1 && indexis > index) return indexis;
-  };
-
-  const allIndexMutual = pairNeghbors
-    .map((el, index) => indexOfMutual(el, pairNeghbors, index))
-    .filter((item) => item);
-
-  const mutual = pairNeghbors.filter((el, index) =>
-    allIndexMutual.every((els) => els !== index)
+  let mutualCountries = [];
+  // notEmptyNeighbors.forEach((para) =>
+  //   notEmptyNeighbors.forEach((el) => {
+  //     if (el.neighbor.includes(para.name)) {
+  //       console.log("includse is ", para.name, el.name);
+  //       if (
+  //         !mutualCountries.some(
+  //           (item) =>
+  //             Object.keys(item) == el.name && Object.values(item) == para.name
+  //         ) &&
+  //         !mutualCountries.some(
+  //           (e) => Object.keys(e) == para.name && Object.values(e) == el.name
+  //         )
+  //       ) {
+  //         mutualCountries = [...mutualCountries, { [el.name]: para.name }];
+  //       }
+  //     }
+  //   })
+  // );
+  notEmptyNeighbors.forEach((para) =>
+    notEmptyNeighbors.forEach((el) => {
+      if (el.neighbor.includes(para.name)) {
+        console.log("includse is ", para.name, el.name);
+        if (
+          !mutualCountries.some(
+            (item) => item.name == el.name && item.neighbor == para.name
+          ) &&
+          !mutualCountries.some(
+            (e) => e.name == para.name && e.neighbor == el.name
+          )
+        ) {
+          mutualCountries = [
+            ...mutualCountries,
+            { name: el.name, neighbor: para.name },
+          ];
+        }
+      }
+    })
   );
 
   return (
@@ -55,7 +63,7 @@ const MutualNieghbors = () => {
       !isLoading &&
       countriesNeighbors.length >= uniqCountries.length ? (
         <Row className="d-flex align-item-center">
-          {mutual.length ? (
+          {mutualCountries.length ? (
             <Col xs={12} className=" d-flex justify-content-center">
               mutual neighbor
             </Col>
@@ -63,13 +71,19 @@ const MutualNieghbors = () => {
             <Alert color="warning">no matual neighbors</Alert>
           )}
           <Col className=" d-flex justify-content-center py-2">
-            <Alert color="info">
-              {mutual.map((el, index) => (
-                <Badge color="success" pill key={index} className="mx-1">
-                  {el.name} - {el.neighbor}
-                </Badge>
-              ))}
-            </Alert>
+            {mutualCountries.length ? (
+              <>
+                <Alert color="info">
+                  {mutualCountries.map((item, index) => (
+                    <Badge color="success" pill key={index} className="mx-1">
+                      {item.name} - {item.neighbor}
+                    </Badge>
+                  ))}
+                </Alert>
+              </>
+            ) : (
+              ""
+            )}
           </Col>
         </Row>
       ) : (
